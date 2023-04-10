@@ -11,7 +11,12 @@ jobs:
     container:
       image: archlinux:latest
     steps:
+      - name: try upgrading git
+        run: |
+          git config --global --add safe.directory $(realpath .)
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - name: check files
         run: ls -la 
       - name: Install prerequisites
