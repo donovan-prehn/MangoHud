@@ -6,11 +6,14 @@ on:
 
 jobs:
   build-arch-pkg:
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     container:
       image: archlinux:latest
     steps:
       - uses: actions/checkout@v3
+      - name: check files
+        run: ls -la 
       - name: Install prerequisites
         run: |
           echo "ParallelDownloads = 10" >> /etc/pacman.conf
@@ -30,15 +33,12 @@ jobs:
           set -x
           echo "runner workspace ${{ runner.workspace }}"
           echo "github workspace ${{ github.workspace }}"
-          cd ${{ runner.workspace }}
           ls -la
           pwd
           assets=()
-          for pkg in ./MangoHud/pkgbuild/*mangohud*.tar.zst;
+          for pkg in ./pkgbuild/*mangohud*.tar.zst;
             do echo $pkg;
             assets+=("-a" "$pkg")
           done;
           tag_name="${GITHUB_REF##*/}"
           hub release edit "${assets[@]}" -m "" "$tag_name"
-          ls -la ${{ github.workspace }}
-          ls -la ${{ github.workspace }}/MangoHud
