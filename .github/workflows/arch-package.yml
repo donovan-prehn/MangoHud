@@ -32,10 +32,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -x
-          echo "runner workspace ${{ runner.workspace }}"
-          echo "github workspace ${{ github.workspace }}"
-          ls -la
-          pwd
           assets=()
           for pkg in ./pkgbuild/*mangohud*.tar.zst;
             do echo $pkg;
