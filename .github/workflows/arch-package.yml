@@ -13,8 +13,8 @@ jobs:
     steps:
       - name: try upgrading git
         run: |
-          git config --global --add safe.directory $(realpath .)
           pacman -Syu git --noconfirm
+          git config --global --add safe.directory $(realpath .)
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
