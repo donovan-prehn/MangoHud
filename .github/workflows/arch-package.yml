@@ -14,6 +14,7 @@ jobs:
       - name: try upgrading git
         run: |
           git config --global --add safe.directory $(realpath .)
+          pacman -Syu git --noconfirm
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
