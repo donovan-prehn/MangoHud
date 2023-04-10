@@ -7,20 +7,21 @@ on:
 jobs:
   build-arch-pkg:
     runs-on: ubuntu-latest
+    # runs-on: ubuntu-20.04
     container:
       image: archlinux:latest
     steps:
+      - name: set git global safe directory
+        run: |
+          pacman -Syu git --noconfirm
+          git config --global --add safe.directory $(realpath .)
       - uses: actions/checkout@v3
-        with:
-          ref: master
-          fetch-depth: 0
       - name: Install prerequisites
         run: |
           echo "ParallelDownloads = 10" >> /etc/pacman.conf
           echo "\n" && echo "[multilib]" >> /etc/pacman.conf
           echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
-          pacman -Syu base-devel sudo meson python-mako glslang git hub --noconfirm
-          git config --global --add safe.directory $(realpath .)
+          pacman -Syu base-devel sudo meson python-mako glslang hub --noconfirm
       - name: makepkg
         run: |
           echo "nobody ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
