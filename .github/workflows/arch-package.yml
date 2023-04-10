@@ -28,7 +28,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -x
-          cd ${{ github.workspace }}
+          echo "runner workspace ${{ runner.workspace }}"
+          echo "github workspace ${{ github.workspace }}"
+          cd ${{ runner.workspace }}
           ls -la
           pwd
           assets=()
