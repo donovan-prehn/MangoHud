@@ -7,13 +7,9 @@ on:
 jobs:
   build-arch-pkg:
     runs-on: ubuntu-latest
-    # runs-on: ubuntu-20.04
     container:
       image: archlinux:latest
     steps:
-      - name: try upgrading git
-        run: |
-          git config --global --add safe.directory $(realpath .)
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
@@ -25,6 +21,7 @@ jobs:
           echo "\n" && echo "[multilib]" >> /etc/pacman.conf
           echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
           pacman -Syu base-devel sudo meson python-mako glslang git hub --noconfirm
+          git config --global --add safe.directory $(realpath .)
       - name: makepkg
         run: |
           echo "nobody ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
