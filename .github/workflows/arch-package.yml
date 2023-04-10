@@ -24,17 +24,19 @@ jobs:
           cd pkgbuild
           sudo -u nobody -- sh -c "makepkg -fsiCc --noconfirm"
       - name: Edit release and add files
-        working-directory: ${{ github.workspace }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -x
+          cd ${{ github.workspace }}
           ls -la
           pwd
           assets=()
-          for pkg in ./pkgbuild/*mangohud*.tar.zst;
+          for pkg in ./MangoHud/pkgbuild/*mangohud*.tar.zst;
             do echo $pkg;
             assets+=("-a" "$pkg")
           done;
           tag_name="${GITHUB_REF##*/}"
           hub release edit "${assets[@]}" -m "" "$tag_name"
+          ls -la ${{ github.workspace }}
+          ls -la ${{ github.workspace }}/MangoHud
