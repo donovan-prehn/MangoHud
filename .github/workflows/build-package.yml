@@ -1,7 +1,6 @@
 name: Build release package
 on:
-  release:
-    types: [published]
+  workflow_dispatch:
 
 jobs:
   build:
