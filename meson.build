@@ -1,8 +1,8 @@
 project('MangoHud',
   ['c', 'cpp'],
-  version : 'v242',
+  version : 'v243',
   license : 'MIT',
-  meson_version: 'v242',
+  meson_version: 'v243',
   default_options : ['buildtype=release', 'c_std=c99', 'cpp_std=c++14', 'warning_level=2']
 )
 
@@ -87,7 +87,7 @@ vulkan_wsi_deps = []
 if is_unixy
   dep_x11 = dependency('x11', required: get_option('with_x11'))
   dep_wayland_client = dependency('wayland-client',
-      required: get_option('with_wayland'), version : 'v242')
+      required: get_option('with_wayland'), version : 'v243')
   dbus_dep = dependency('dbus-1', required: get_option('with_dbus')).partial_dependency(compile_args : true, includes : true)
   dep_xkb = dependency('xkbcommon', required: get_option('with_wayland'))
 else
